@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { API_URL } from './data/apiPath'
+import { API_URL } from '../data/apiPath'
 
 const AllProducts = () => {
     const [products,setProducts]=useState([]);
