@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
+import Navbar from '../components/NavBar'
+import Sidebar from '../components/SideBar'
 import Login from '../components/forms/Login'
 import Register from '../components/forms/Register'
 import AddFirm from '../components/forms/AddFirm'
@@ -12,23 +12,23 @@ import AllProducts from '../components/AllProducts'
 
  
 const LandingPage = () => {
-  const [showLogin,setshowLogin] = useState(false);
-   const [showRegister,setshowRegister]=useState(false);
+  const [showLogin,setShowLogin] = useState(false);
+   const [showRegister,setShowRegister]=useState(false);
   const [showFirm,setshowFirm]=useState(false);
   const [showProduct,setshowProduct]=useState(false);
    const [showWelcome,setShowWelcome]=useState(false);
   const [showAllProducts,setShowAllProducts] = useState(false);
-  const [showLogOut,setShowLogOut]=useState(false);
+  const [showLogout,setShowLogout]=useState(false);
   const [showFirmTitle,setShowFirmTitle] = useState(true);
   
 
   useEffect(()=>{
     const loginToken = localStorage.getItem('loginToken');
     if(loginToken){
-      setShowLogOut(true);
+      setShowLogout(true);
       setShowWelcome(true);
     }else{
-      setShowLogOut(false);
+      setShowLogout(false);
     }
   },[]);
 
@@ -42,7 +42,7 @@ const LandingPage = () => {
 
   },[]);
 
-const logOutHandler=()=>{
+const logoutHandler=()=>{
 
   const confirmLogout = window.confirm("Are you sure you want to logout?");
   if(!confirmLogout) return;
@@ -51,57 +51,57 @@ const logOutHandler=()=>{
   localStorage.removeItem('firmId');
   localStorage.removeItem('firmName');
 
-  setShowLogOut(false)
+  setShowLogout(false)
       setShowFirmTitle(true)
       setShowWelcome(false)
 
 }
 
 const showLoginHandler=()=>{
-  setshowLogin(true);
-    setshowRegister(false);
+  setShowLogin(true);
+    setShowRegister(false);
     setshowFirm(false);
     setshowProduct(false);
      setShowWelcome(false);
      setShowAllProducts(false);
-    setShowLogOut(false);
+    setShowLogout(false);
 }
 
 const showRegisterHandler=()=>{
-  setshowRegister(true);
-  setshowLogin(false);
+  setShowRegister(true);
+  setShowLogin(false);
   setshowFirm(false);
   setshowProduct(false);
    setShowWelcome(false);
    setShowAllProducts(false);
-  setShowLogOut(false);
+  setShowLogout(false);
 }
 const showFirmHandler=()=>{
-  if(showLogOut){
+  if(showLogout){
   setshowFirm(true);
-  setshowRegister(false);
-   setshowLogin(false);
+  setShowRegister(false);
+   setShowLogin(false);
    setshowProduct(false);
     setShowWelcome(false);
     setShowAllProducts(false);
-    setShowLogOut(true);
+    setShowLogout(true);
   }else{
     alert("please login ");
-     setshowLogin(true);
+     setShowLogin(true);
 
 
   }
 
 }
 const showProductHandler=()=>{
-  if(showLogOut){
+  if(showLogout){
   setshowProduct(true);
    setshowFirm(false);
-  setshowRegister(false);
-   setshowLogin(false);
+  setShowRegister(false);
+   setShowLogin(false);
     setShowWelcome(false);
     setShowAllProducts(false);
-    setShowLogOut(true);
+    setShowLogout(true);
   }else{
     alert("set")
   }
@@ -112,26 +112,26 @@ const showWelcomeHandler=()=>{
   setShowWelcome(true);
   setshowProduct(false);
    setshowFirm(false);
-  setshowRegister(false);
-   setshowLogin(false);
+  setShowRegister(false);
+   setShowLogin(false);
     setShowAllProducts(false);
-    setShowLogOut(true);
+    setShowLogout(true);
 
 }
 const showAllProductsHandler = ()=>{
   const loginToken=localStorage.getItem('loginToken');
   if(loginToken){
-    setshowRegister(false)
-    setshowLogin(false)
+    setShowRegister(false)
+    setShowLogin(false)
     setshowFirm(false)
     setshowProduct(false)
     setShowWelcome(false)
     setShowAllProducts(true)
-    setShowLogOut(true);
+    setShowLogout(true);
 
 }else{
     alert("please login")
-    setshowLogin(true)
+    setShowLogin(true)
  }
 }
 
@@ -139,20 +139,20 @@ const showAllProductsHandler = ()=>{
    <>
    <section className='landingSection'>
      <Navbar showLoginHandler={showLoginHandler} showRegisterHandler={showRegisterHandler}
-     showLogOut={showLogOut}
-     logOutHandler={logOutHandler}/>
+     showLogout={showLogout}
+     logoutHandler={logoutHandler}/>
 
      <div className="collectionSection">
 
       <Sidebar showFirmHandler={showFirmHandler} showProductHandler={showProductHandler} 
                showAllProductsHandler={showAllProductsHandler} showFirmTitle={showFirmTitle}/>
          
-     {showFirm   && showLogOut && < AddFirm/> }
+     {showFirm   && showLogout && < AddFirm/> }
       {showLogin &&  <Login showWelcomeHandler={showWelcomeHandler}/>} 
       {showRegister && <Register showLoginHandler={showLoginHandler}/>}
-   {showProduct && showLogOut &&  <AddProduct showProductHandler={showProductHandler}/>}
+   {showProduct && showLogout &&  <AddProduct showProductHandler={showProductHandler}/>}
    {showWelcome && <Welcome/>}
-   {showAllProducts && showLogOut && <AllProducts />}
+   {showAllProducts && showLogout && <AllProducts />}
      </div>
     
    </section>

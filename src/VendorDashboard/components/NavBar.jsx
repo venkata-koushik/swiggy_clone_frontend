@@ -1,7 +1,6 @@
 import React from 'react'
 
-const Navbar = ({showLoginHandler,showRegisterHandler,showLogOut,logOutHandler}) => {
-  console.log(showLoginHandler);
+const Navbar = ({showLoginHandler,showRegisterHandler,showLogout,logoutHandler}) => {
   const firmName=localStorage.getItem('firmName');
   return (
    <div className="navSection">
@@ -13,12 +12,12 @@ const Navbar = ({showLoginHandler,showRegisterHandler,showLogOut,logOutHandler})
 
     </div>
     <div className="userAuth">
-      {!showLogOut ?
+      {!showLogout ?
        <>     
        <span onClick={showLoginHandler}>Login</span>
        <span>/</span>
       <span onClick={showRegisterHandler}>Register</span>
-      </>:<span onClick={logOutHandler}>LogOut</span> }
+      </>:<span onClick={logoutHandler}>LogOut</span> }
      
 
     </div>
