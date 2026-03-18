@@ -69,8 +69,10 @@ const showRegisterHandler=()=>{
    setShowWelcome(false);
    setShowAllProducts(false);
 }
+const hasLoginToken = () => Boolean(localStorage.getItem('loginToken'));
+
 const showFirmHandler=()=>{
-  if(showLogout){
+  if(hasLoginToken()){
   setshowFirm(true);
   setShowRegister(false);
    setShowLogin(false);
@@ -87,7 +89,7 @@ const showFirmHandler=()=>{
 
 }
 const showProductHandler=()=>{
-  if(showLogout){
+  if(hasLoginToken()){
   setshowProduct(true);
    setshowFirm(false);
   setShowRegister(false);
@@ -112,8 +114,7 @@ const showWelcomeHandler=()=>{
 
 }
 const showAllProductsHandler = ()=>{
-  const loginToken=localStorage.getItem('loginToken');
-  if(loginToken){
+  if(hasLoginToken()){
     setShowRegister(false)
     setShowLogin(false)
     setshowFirm(false)
@@ -134,6 +135,16 @@ const handleFirmAdded = ()=>{
   setShowWelcome(true);
 }
 
+const handleAuthExpired = ()=>{
+  setShowLogout(false);
+  setShowFirmTitle(true);
+  setShowWelcome(false);
+  setshowFirm(false);
+  setshowProduct(false);
+  setShowAllProducts(false);
+  setShowLogin(true);
+}
+
   return (
    <>
    <section className='landingSection'>
@@ -146,10 +157,10 @@ const handleFirmAdded = ()=>{
       <Sidebar showFirmHandler={showFirmHandler} showProductHandler={showProductHandler} 
                showAllProductsHandler={showAllProductsHandler} showFirmTitle={showFirmTitle}/>
          
-     {showFirm   && showLogout && <AddFirm onFirmAdded={handleFirmAdded} />}
+     {showFirm   && showLogout && <AddFirm onFirmAdded={handleFirmAdded} onAuthExpired={handleAuthExpired} />}
       {showLogin &&  <Login showWelcomeHandler={showWelcomeHandler}/>} 
       {showRegister && <Register showLoginHandler={showLoginHandler}/>}
-   {showProduct && showLogout &&  <AddProduct showProductHandler={showProductHandler}/>}
+   {showProduct && showLogout &&  <AddProduct onAuthExpired={handleAuthExpired} />}
    {showWelcome && <Welcome/>}
    {showAllProducts && showLogout && <AllProducts />}
      </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { API_URL } from '../../data/apiPath'
 
-const AddProduct = () => {
+const AddProduct = ({ onAuthExpired }) => {
 
   const [productName,setProductName] = useState("");
   const [price,setPrice] = useState("");
@@ -46,6 +46,9 @@ const AddProduct = () => {
       if(!loginToken){
         console.error("user not authenticated");
         alert("Please login first");
+        if(onAuthExpired){
+          onAuthExpired();
+        }
         return;
       }
 
@@ -91,6 +94,9 @@ const AddProduct = () => {
         localStorage.removeItem('firmId');
         localStorage.removeItem('firmName');
         alert(data.error || "Session expired. Please login again");
+        if(onAuthExpired){
+          onAuthExpired();
+        }
       } else {
         alert(data.message || "adding product failed");
       }

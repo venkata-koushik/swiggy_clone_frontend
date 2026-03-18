@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {API_URL} from '../../data/apiPath'
 
-const AddFirm = ({ onFirmAdded }) => {
+const AddFirm = ({ onFirmAdded, onAuthExpired }) => {
     const [firmName,setFirmName]=useState("");
     const [area,setArea]=useState("");
     const [category,setCatogery]=useState([]);
@@ -39,6 +39,9 @@ const AddFirm = ({ onFirmAdded }) => {
     if(!loginToken){
      console.error("user not authenticated")
       alert("please login first");
+      if(onAuthExpired){
+        onAuthExpired();
+      }
       return;
     }
     const formData=new FormData();
@@ -88,6 +91,9 @@ const AddFirm = ({ onFirmAdded }) => {
         localStorage.removeItem('firmId');
         localStorage.removeItem('firmName');
         alert(data.error || "Session expired. Please login again");
+        if(onAuthExpired){
+          onAuthExpired();
+        }
       }else if(data.message === "vendor can have only one firm"){
          alert("firm exisit only 1 firm can be added");
       }else{
