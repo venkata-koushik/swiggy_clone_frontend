@@ -5,7 +5,7 @@ import './App.css'
 import { Routes,Route } from 'react-router-dom'
 import Navbar from './VendorDashboard/components/Navbar'
 import Login from './VendorDashboard/components/forms/Login'
-import NotFound  from './VendorDashboard/components/forms/NotFound'
+import NotFound  from './VendorDashboard/components/NotFound'
 
 const App = () => {
   return (
