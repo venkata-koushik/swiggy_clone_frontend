@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {API_URL} from '../../data/apiPath'
 
-const AddFirm = () => {
+const AddFirm = ({ onFirmAdded }) => {
     const [firmName,setFirmName]=useState("");
     const [area,setArea]=useState("");
     const [category,setCatogery]=useState([]);
@@ -76,6 +76,12 @@ const AddFirm = () => {
        alert('Firm added sucessfully');
        if(data.firmId){
         localStorage.setItem('firmId',data.firmId);
+       }
+       if(firmName){
+        localStorage.setItem('firmName', firmName);
+       }
+       if(onFirmAdded){
+        onFirmAdded();
        }
       }else if(data.message === "vendor can have only one firm"){
          alert("firm exisit only 1 firm can be added");

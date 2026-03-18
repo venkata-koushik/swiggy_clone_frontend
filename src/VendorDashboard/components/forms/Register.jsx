@@ -26,6 +26,8 @@ const Register = ({showLoginHandler}) => {
         console.log(data);
         alert("vendor registered succesfully");
         showLoginHandler();
+      } else {
+        alert(data.error || data.message || "registration failed");
       }
     }catch(error){
           console.error(error);

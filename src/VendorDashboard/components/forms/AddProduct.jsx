@@ -43,9 +43,14 @@ const AddProduct = () => {
       const loginToken = localStorage.getItem('loginToken');
       const firmId = localStorage.getItem('firmId');
 
-      if(!loginToken || !firmId){
+      if(!loginToken){
         console.error("user not authenticated");
-        alert("Please login and add firm first");
+        alert("Please login first");
+        return;
+      }
+
+      if(!firmId){
+        alert("Please add a firm first");
         return;
       }
 

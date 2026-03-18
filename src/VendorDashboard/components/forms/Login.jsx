@@ -19,6 +19,10 @@ const Login = ({showWelcomeHandler}) => {
       const data=await response.json();
      
       if(response.ok){
+      if(!data.token){
+        alert("login token not received from server");
+        return;
+      }
         console.log("loged in succesfull");
       alert("loged in succesfull");
       setEmail("");
@@ -26,28 +30,35 @@ const Login = ({showWelcomeHandler}) => {
       localStorage.setItem('loginToken',data.token);
       localStorage.removeItem('firmId');
       localStorage.removeItem('firmName');
-      showWelcomeHandler();
 
       
-      const vendorId=data.vendorId;
+      const vendorId = data.vendorId || data.vendorID || data.id;
 
        if(!vendorId){
           console.error("Vendor ID not found");
+          showWelcomeHandler();
           return;
        }
       const vendorResponse=await fetch(`${API_URL}/vendor/single-vendor/${vendorId}`)
       const vendorData=await vendorResponse.json();
-      if(vendorResponse.ok && vendorData.vendorFirmId){
-        const vendorFirmId=vendorData.vendorFirmId;
-        const vendorFirmName=vendorData.vendorFirmName;
+      if(vendorResponse.ok){
+        const vendorFirmId = vendorData.vendorFirmId;
+        const vendorFirmName = vendorData.vendorFirmName;
+        if(vendorFirmId){
           console.log("checking for firmId",vendorFirmId);
-         console.log("my firm name is", vendorFirmName);
-         localStorage.setItem('firmId',vendorFirmId);
-         if(vendorFirmName){
+          localStorage.setItem('firmId',vendorFirmId);
+        } else {
+          localStorage.removeItem('firmId');
+        }
+        if(vendorFirmName){
+          console.log("my firm name is", vendorFirmName);
           localStorage.setItem('firmName',vendorFirmName);
-         }
-        window.location.reload();
+        } else {
+          localStorage.removeItem('firmName');
+        }
       }
+      showWelcomeHandler();
+      window.location.reload();
     } else {
       alert(data.error || "login failed");
     }

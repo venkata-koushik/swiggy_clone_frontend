@@ -24,22 +24,17 @@ const LandingPage = () => {
 
   useEffect(()=>{
     const loginToken = localStorage.getItem('loginToken');
+    const firmName=localStorage.getItem('firmName');
+    const firmId = localStorage.getItem('firmId');
+
     if(loginToken){
       setShowLogout(true);
       setShowWelcome(true);
+      setShowFirmTitle(!(firmName || firmId));
     }else{
       setShowLogout(false);
+      setShowFirmTitle(true);
     }
-  },[]);
-
-  useEffect(()=>{
-    const firmName=localStorage.getItem('firmName');
-    const firmId = localStorage.getItem('firmId')
-      if(firmName || firmId ){
-          setShowFirmTitle(false)
-          setShowWelcome(true)
-      }
-
   },[]);
 
 const logoutHandler=()=>{
@@ -64,7 +59,6 @@ const showLoginHandler=()=>{
     setshowProduct(false);
      setShowWelcome(false);
      setShowAllProducts(false);
-    setShowLogout(false);
 }
 
 const showRegisterHandler=()=>{
@@ -74,7 +68,6 @@ const showRegisterHandler=()=>{
   setshowProduct(false);
    setShowWelcome(false);
    setShowAllProducts(false);
-  setShowLogout(false);
 }
 const showFirmHandler=()=>{
   if(showLogout){
@@ -103,7 +96,7 @@ const showProductHandler=()=>{
     setShowAllProducts(false);
     setShowLogout(true);
   }else{
-    alert("set")
+    alert("please login and add a firm first")
   }
     
 
@@ -135,6 +128,12 @@ const showAllProductsHandler = ()=>{
  }
 }
 
+const handleFirmAdded = ()=>{
+  setShowFirmTitle(false);
+  setshowFirm(false);
+  setShowWelcome(true);
+}
+
   return (
    <>
    <section className='landingSection'>
@@ -147,7 +146,7 @@ const showAllProductsHandler = ()=>{
       <Sidebar showFirmHandler={showFirmHandler} showProductHandler={showProductHandler} 
                showAllProductsHandler={showAllProductsHandler} showFirmTitle={showFirmTitle}/>
          
-     {showFirm   && showLogout && < AddFirm/> }
+     {showFirm   && showLogout && <AddFirm onFirmAdded={handleFirmAdded} />}
       {showLogin &&  <Login showWelcomeHandler={showWelcomeHandler}/>} 
       {showRegister && <Register showLoginHandler={showLoginHandler}/>}
    {showProduct && showLogout &&  <AddProduct showProductHandler={showProductHandler}/>}
