@@ -69,7 +69,7 @@ const AddProduct = () => {
       const response = await fetch(`${API_URL}/product/add-product/${firmId}`,{
         method:'POST',
         headers:{
-          'token':loginToken
+          Authorization: `Bearer ${loginToken}`
         },
         body:formData
       });
@@ -86,6 +86,11 @@ const AddProduct = () => {
         setBestseller(false);
         setDescription("");
         setImage(null);
+      } else if(response.status === 401){
+        localStorage.removeItem('loginToken');
+        localStorage.removeItem('firmId');
+        localStorage.removeItem('firmName');
+        alert(data.error || "Session expired. Please login again");
       } else {
         alert(data.message || "adding product failed");
       }

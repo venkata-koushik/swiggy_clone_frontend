@@ -83,6 +83,11 @@ const AddFirm = ({ onFirmAdded }) => {
        if(onFirmAdded){
         onFirmAdded();
        }
+      }else if(response.status === 401){
+        localStorage.removeItem('loginToken');
+        localStorage.removeItem('firmId');
+        localStorage.removeItem('firmName');
+        alert(data.error || "Session expired. Please login again");
       }else if(data.message === "vendor can have only one firm"){
          alert("firm exisit only 1 firm can be added");
       }else{
