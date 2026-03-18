@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { API_URL } from '../data/apiPath'
 
 const AllProducts = () => {
@@ -45,7 +45,7 @@ const AllProducts = () => {
         }else{
           alert("failed to delete product");
         }
-    }catch(error){
+    }catch(_error){
             console.log('falied to delte product');
             alert("failde t delte the product");
 

@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const Welcome = () => {
   const firmName = localStorage.getItem('firmName');

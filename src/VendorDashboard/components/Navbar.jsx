@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Navbar = ({showLoginHandler,showRegisterHandler,showLogout,logoutHandler}) => {
   const firmName=localStorage.getItem('firmName');
   return (

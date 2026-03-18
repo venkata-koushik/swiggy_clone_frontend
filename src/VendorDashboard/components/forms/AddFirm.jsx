@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import { useState } from 'react'
 import {API_URL} from '../../data/apiPath'
 
 const AddFirm = () => {
@@ -82,7 +82,7 @@ const AddFirm = () => {
       }else{
         alert(data.message || 'failed to add firm');
       }
-    }catch(error){
+    }catch(_error){
           console.error("adding firm falied");
           alert("adding firm  falied");
        }

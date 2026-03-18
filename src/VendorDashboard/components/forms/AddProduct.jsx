@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { API_URL } from '../../data/apiPath'
 
 const AddProduct = () => {
@@ -85,7 +85,7 @@ const AddProduct = () => {
         alert(data.message || "adding product failed");
       }
 
-    }catch(error){
+    }catch(_error){
 
       console.error("adding product failed");
       alert("adding product failed");
