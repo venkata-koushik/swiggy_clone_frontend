@@ -206,3 +206,87 @@ body{
   font-size: 4rem;
   
 }
+
+/* Product table */
+.productListSection{
+  width: 100%;
+}
+
+.emptyProductsMsg{
+  font-size: 15px;
+  color: #4b5563;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.productTableWrapper{
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.product-table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.product-table th{
+  text-align: left;
+  background: #f8fafc;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.product-table td{
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1f2937;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.product-table tbody tr:last-child td{
+  border-bottom: none;
+}
+
+.productPriceCell{
+  font-weight: 600;
+  color: #0f766e;
+}
+
+.productThumb{
+  width: 84px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.deleteProductBtn{
+  border: 1px solid #ef4444;
+  background: #ffffff;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deleteProductBtn:hover{
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.deleteProductBtn:active{
+  transform: translateY(1px);
+}

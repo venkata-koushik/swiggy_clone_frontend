@@ -53,13 +53,14 @@ const AllProducts = () => {
     }
 
   return (
-    <div>
-       {!products ? (
-       <p>no products added till now</p>
+    <div className='productListSection'>
+       {products.length === 0 ? (
+       <p className='emptyProductsMsg'>No products added till now</p>
        ):  (
-           <table className='product-table'>
+          <div className='productTableWrapper'>
+            <table className='product-table'>
             <thead>
-                <tr>
+                <tr className='productTableHeadRow'>
                     <th>Product name</th>
                     <th>Price</th>
                     <th>Image</th>
@@ -72,21 +73,29 @@ const AllProducts = () => {
                     
                     <tr key={item._id}>
                                 <td>{item.productName}</td>
-                                 <td>{item.price}</td>
+                                 <td className='productPriceCell'>Rs. {item.price}</td>
                                 <td>
                                     {item.image && (
                                         <img src={`${API_URL}/uploads/${item.image}`} 
                                         alt={item.productName}
-                                        width='80'/>
+                                        className='productThumb'/>
                                     )}
                                 </td>
-                                  <td><button onClick={()=>deleteProduct(item._id)}>Delete</button></td>
+                                  <td>
+                                    <button
+                                      className='deleteProductBtn'
+                                      onClick={()=>deleteProduct(item._id)}
+                                    >
+                                      Delete
+                                    </button>
+                                  </td>
                             </tr>
                        
                     )
                 })}
             </tbody>
            </table>
+          </div>
        ) 
      }
  
