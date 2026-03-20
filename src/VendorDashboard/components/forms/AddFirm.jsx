@@ -104,6 +104,62 @@ const AddFirm = ({ onFirmAdded, onAuthExpired }) => {
           alert("adding firm  falied");
        }
     }   
+
+    const handleFirmImageUpdate = async () => {
+      try {
+        const loginToken = localStorage.getItem('loginToken');
+        const firmId = localStorage.getItem('firmId');
+
+        if (!loginToken) {
+          alert("please login first");
+          if (onAuthExpired) {
+            onAuthExpired();
+          }
+          return;
+        }
+
+        if (!firmId) {
+          alert("No firm found. Please add a firm first.");
+          return;
+        }
+
+        if (!file) {
+          alert("Please choose an image first");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const response = await fetch(`${API_URL}/firm/${firmId}/image`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${loginToken}`
+          },
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert("Firm image updated successfully");
+          setFile(null);
+        } else if (response.status === 401) {
+          localStorage.removeItem('loginToken');
+          localStorage.removeItem('firmId');
+          localStorage.removeItem('firmName');
+          alert(data.error || "Session expired. Please login again");
+          if (onAuthExpired) {
+            onAuthExpired();
+          }
+        } else {
+          alert(data.error || data.message || "failed to update image");
+        }
+      } catch (_error) {
+        console.error("firm image update failed");
+        alert("firm image update failed");
+      }
+    };
      
   return (
  <div className="firmSection">
@@ -170,6 +226,9 @@ const AddFirm = ({ onFirmAdded, onAuthExpired }) => {
             <div className="btnSubmit">
         <button type='submit'>Submit</button>
     </div> 
+    <div className="btnSubmit" style={{ marginTop: "10px" }}>
+        <button type='button' onClick={handleFirmImageUpdate}>Update Image Only</button>
+    </div>
     </form>
  </div>
 
